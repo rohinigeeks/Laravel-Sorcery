@@ -220,7 +220,7 @@ class APIGeneratorCommand extends GeneratorCommand {
 	 *
 	 * @return void
 	 */
-	protected function migration_helper()
+	public function migration_helper()
 	{
 		$this->info( 'Using connection: '. $this->option( 'connection' ) ."\n" );
 		$this->schemaGenerator = new SchemaGenerator(
