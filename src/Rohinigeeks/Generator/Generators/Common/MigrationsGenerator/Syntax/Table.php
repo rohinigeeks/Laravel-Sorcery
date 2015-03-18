@@ -13,12 +13,10 @@ namespace Rohinigeeks\Generator\Generators\Common\MigrationsGenerator\Syntax;
  * @package Xethron\MigrationsGenerator\Syntax
  */
 abstract class Table extends \Way\Generators\Syntax\Table{
-
 	/**
 	 * @var string
 	 */
 	protected $table;
-
 	/**
 	 * @param array $fields
 	 * @param string $table
@@ -31,7 +29,6 @@ abstract class Table extends \Way\Generators\Syntax\Table{
 		$compiled = $this->compiler->compile($this->getTemplate(), ['table'=>$table,'method'=>$method]);
 		return $this->replaceFieldsWith($this->getItems($fields), $compiled);
 	}
-
 	/**
 	 * Return string for adding all foreign keys
 	 *
@@ -46,13 +43,11 @@ abstract class Table extends \Way\Generators\Syntax\Table{
 		}
 		return $result;
 	}
-
 	/**
 	 * @param array $item
 	 * @return string
 	 */
 	abstract protected function getItem(array $item);
-
 	/**
 	 * @param $decorators
 	 * @return string

@@ -14,7 +14,6 @@ namespace Rohinigeeks\Generator\Generators\Common\MigrationsGenerator\Syntax;
  * @package Xethron\MigrationsGenerator\Syntax
  */
 class AddToTable extends Table {
-
 	/**
 	 * Return string for adding a column
 	 *
@@ -24,7 +23,6 @@ class AddToTable extends Table {
 	protected function getItem(array $field)
 	{
 		$property = $field['field'];
-
 		// If the field is an array,
 		// make it an array in the Migration
 		if (is_array($property)) {
@@ -32,15 +30,12 @@ class AddToTable extends Table {
 		} else {
 			$property = $property ? "'$property'" : null;
 		}
-
 		$type = $field['type'];
-
 		$output = sprintf(
 			"\$table->%s(%s)",
 			$type,
 			$property
 		);
-
 		// If we have args, then it needs
 		// to be formatted a bit differently
 		if (isset($field['args'])) {

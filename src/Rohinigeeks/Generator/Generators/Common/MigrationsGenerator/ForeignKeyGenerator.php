@@ -10,12 +10,10 @@ namespace Rohinigeeks\Generator\Generators\Common\MigrationsGenerator;
 
 
 class ForeignKeyGenerator {
-
 	/**
 	 * @var string
 	 */
 	protected $table;
-
 	/**
 	 * Get array of foreign keys
 	 *
@@ -29,11 +27,8 @@ class ForeignKeyGenerator {
 	{
 		$this->table = $table;
 		$fields = [];
-
 		$foreignKeys = $schema->listTableForeignKeys($table);
-
 		if ( empty( $foreignKeys ) ) return array();
-
 		foreach ( $foreignKeys as $foreignKey ) {
 			$fields[] = [
 				'name' => $this->getName($foreignKey, $ignoreForeignKeyNames),
@@ -46,7 +41,6 @@ class ForeignKeyGenerator {
 		}
 		return $fields;
 	}
-
 	/**
 	 * @param      $foreignKey
 	 * @param bool $ignoreForeignKeyNames
@@ -59,7 +53,6 @@ class ForeignKeyGenerator {
 		}
 		return $foreignKey->getName();
 	}
-
 	/**
 	 * @param $foreignKey
 	 *
@@ -68,7 +61,6 @@ class ForeignKeyGenerator {
 	private function isDefaultName($foreignKey) {
 		return $foreignKey->getName() === $this->createIndexName($foreignKey->getLocalColumns()[0]);
 	}
-
 	/**
 	 * Create a default index name for the table.
 	 *
@@ -78,7 +70,6 @@ class ForeignKeyGenerator {
 	protected function createIndexName($column)
 	{
 		$index = strtolower($this->table.'_'.$column.'_foreign');
-
 		return str_replace(array('-', '.'), '_', $index);
 	}
 }

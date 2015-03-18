@@ -12,7 +12,6 @@ namespace Rohinigeeks\Generator\Generators\Common\MigrationsGenerator\Syntax;
  * @package Xethron\MigrationsGenerator\Syntax
  */
 class RemoveForeignKeysFromTable extends Table {
-
 	/**
 	 * Return string for dropping a foreign key
 	 *
@@ -24,7 +23,6 @@ class RemoveForeignKeysFromTable extends Table {
 		$name = empty($foreignKey['name']) ? $this->createIndexName($foreignKey['field']) : $foreignKey['name'];
 		return sprintf("\$table->dropForeign('%s');", $name);
 	}
-
 	/**
 	 * Create a default index name for the table.
 	 *
@@ -34,7 +32,6 @@ class RemoveForeignKeysFromTable extends Table {
 	protected function createIndexName($column)
 	{
 		$index = strtolower($this->table.'_'.$column.'_foreign');
-
 		return str_replace(array('-', '.'), '_', $index);
 	}
 }

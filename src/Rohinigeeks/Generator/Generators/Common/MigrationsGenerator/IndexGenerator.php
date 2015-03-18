@@ -9,22 +9,18 @@
 namespace Rohinigeeks\Generator\Generators\Common\MigrationsGenerator;
 
 class IndexGenerator {
-
 	/**
 	 * @var array
 	 */
 	protected $indexes;
-
 	/**
 	 * @var array
 	 */
 	protected $multiFieldIndexes;
-
 	/**
 	 * @var bool
 	 */
 	private $ignoreIndexNames;
-
 	/**
 	 * @param string                                      $table Table Name
 	 * @param \Doctrine\DBAL\Schema\AbstractSchemaManager $schema
@@ -35,9 +31,7 @@ class IndexGenerator {
 		$this->indexes = array();
 		$this->multiFieldIndexes = array();
 		$this->ignoreIndexNames = $ignoreIndexNames;
-
 		$indexes = $schema->listTableIndexes( $table );
-
 		foreach ( $indexes as $index ) {
 			$indexArray = $this->indexToArray($table, $index);
 			if ( count( $indexArray['columns'] ) == 1 ) {
@@ -48,8 +42,6 @@ class IndexGenerator {
 			}
 		}
 	}
-
-
 	/**
 	 * @param string $table
 	 * @param \Doctrine\DBAL\Schema\Index $index
@@ -65,13 +57,12 @@ class IndexGenerator {
 			$type = 'index';
 		}
 		$array = ['type' => $type, 'name' => null, 'columns' => $index->getColumns()];
-
 		if ( ! $this->ignoreIndexNames and ! $this->isDefaultIndexName($table, $index->getName(), $type, $index->getColumns())) {
-			$array['name'] = $index->getName();
+			// Sent Index name to exclude spaces
+			$array['name'] = str_replace(' ', '', $index->getName());
 		}
 		return $array;
 	}
-
 	/**
 	 * @param string $table Table Name
 	 * @param string $type Index Type
@@ -88,7 +79,6 @@ class IndexGenerator {
 		}
 		return $table .'_'. $columns .'_'. $type;
 	}
-
 	/**
 	 * @param string       $table   Table Name
 	 * @param string       $name    Current Name
@@ -100,8 +90,6 @@ class IndexGenerator {
 	{
 		return $name == $this->getDefaultIndexName( $table, $type, $columns );
 	}
-
-
 	/**
 	 * @param string $name
 	 * @return null|object
@@ -113,7 +101,6 @@ class IndexGenerator {
 		}
 		return null;
 	}
-
 	/**
 	 * @return null|object
 	 */
@@ -121,5 +108,4 @@ class IndexGenerator {
 	{
 		return $this->multiFieldIndexes;
 	}
-
 }

@@ -9,24 +9,19 @@
 namespace Rohinigeeks\Generator\Generators\Common\MigrationsGenerator;
 
 use DB;
-
 class SchemaGenerator {
-
 	/**
 	 * @var \Doctrine\DBAL\Schema\AbstractSchemaManager
 	 */
 	protected $schema;
-
 	/**
 	 * @var FieldGenerator
 	 */
 	protected $fieldGenerator;
-
 	/**
 	 * @var ForeignKeyGenerator
 	 */
 	protected $foreignKeyGenerator;
-
 	/**
 	 * @var string
 	 */
@@ -39,7 +34,6 @@ class SchemaGenerator {
 	 * @var bool
 	 */
 	private $ignoreForeignKeyNames;
-
 	/**
 	 * @param string $database
 	 * @param bool   $ignoreIndexNames
@@ -50,17 +44,13 @@ class SchemaGenerator {
 		$connection = DB::connection($database)->getDoctrineConnection();
 		$connection->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
 		$connection->getDatabasePlatform()->registerDoctrineTypeMapping('bit', 'boolean');
-
 		$this->database = $connection->getDatabase();
-
 		$this->schema = $connection->getSchemaManager();
 		$this->fieldGenerator = new FieldGenerator();
 		$this->foreignKeyGenerator = new ForeignKeyGenerator();
-
 		$this->ignoreIndexNames = $ignoreIndexNames;
 		$this->ignoreForeignKeyNames = $ignoreForeignKeyNames;
 	}
-
 	/**
 	 * @return mixed
 	 */
@@ -68,15 +58,12 @@ class SchemaGenerator {
 	{
 		return $this->schema->listTableNames();
 	}
-
 	public function getFields($table)
 	{
 		return $this->fieldGenerator->generate($table, $this->schema, $this->database, $this->ignoreIndexNames);
 	}
-
 	public function getForeignKeyConstraints($table)
 	{
 		return $this->foreignKeyGenerator->generate($table, $this->schema, $this->ignoreForeignKeyNames);
 	}
-
 }

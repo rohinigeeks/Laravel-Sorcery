@@ -7,13 +7,11 @@
  */
 
 namespace Rohinigeeks\Generator\Generators\Common\MigrationsGenerator\Syntax;
-
 /**
  * Class AddForeignKeysToTable
  * @package Xethron\MigrationsGenerator\Syntax
  */
 class AddForeignKeysToTable extends Table {
-
 	/**
 	 * Return string for adding a foreign key
 	 *
@@ -43,5 +41,4 @@ class AddForeignKeysToTable extends Table {
 		}
 		return $output . ';';
 	}
-
 }

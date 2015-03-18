@@ -170,6 +170,16 @@ class ScaffoldGeneratorCommand extends GeneratorCommand {{
 
 		migration_helper();
 
+		if ( $this->argument( 'tables' ) ) {
+			$tables = explode( ',', $this->argument( 'tables' ) );
+		} elseif ( $this->option('tables') ) {
+			$tables = explode( ',', $this->option( 'tables' ) );
+		} else {
+			$tables = $this->schemaGenerator->getTables();
+		}
+
+		$tables = $this->removeExcludedTables($tables);
+
 		foreach ( $tables as $table ) {
 
 			$this->commandData = new CommandData($this);

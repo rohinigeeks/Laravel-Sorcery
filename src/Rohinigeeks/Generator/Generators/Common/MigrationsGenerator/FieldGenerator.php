@@ -9,9 +9,7 @@
 namespace Rohinigeeks\Generator\Generators\Common\MigrationsGenerator;
 
 use DB;
-
 class FieldGenerator {
-
 	/**
 	 * Convert dbal types to Laravel Migration Types
 	 * @var array
@@ -23,12 +21,10 @@ class FieldGenerator {
 		'datetime' => 'dateTime',
 		'blob'     => 'binary',
 	];
-
 	/**
 	 * @var string
 	 */
 	protected $database;
-
 	/**
 	 * Create array of all the fields for a table
 	 *
@@ -44,13 +40,11 @@ class FieldGenerator {
 		$this->database = $database;
 		$columns = $schema->listTableColumns( $table );
 		if ( empty( $columns ) ) return false;
-
 		$indexGenerator = new IndexGenerator($table, $schema, $ignoreIndexNames);
 		$fields = $this->setEnum($this->getFields($columns, $indexGenerator), $table);
 		$indexes = $this->getMultiFieldIndexes($indexGenerator);
 		return array_merge($fields, $indexes);
 	}
-
 	/**
 	 * Return all enum columns for a given table
 	 * @param string $table
@@ -72,7 +66,6 @@ class FieldGenerator {
 			return [];
 		}
 	}
-
 	/**
 	 * @param array $fields
 	 * @param string $table
@@ -86,7 +79,6 @@ class FieldGenerator {
 		}
 		return $fields;
 	}
-
 	/**
 	 * @param \Doctrine\DBAL\Schema\Column[] $columns
 	 * @param IndexGenerator $indexGenerator
@@ -102,14 +94,11 @@ class FieldGenerator {
 			$default = $column->getDefault();
 			$nullable = (!$column->getNotNull());
 			$index = $indexGenerator->getIndex($name);
-
 			$decorators = null;
 			$args = null;
-
 			if (isset($this->fieldTypeMap[$type])) {
 				$type = $this->fieldTypeMap[$type];
 			}
-
 			// Different rules for different type groups
 			if (in_array($type, ['tinyInteger', 'smallInteger', 'integer', 'bigInteger'])) {
 				// Integer
@@ -150,11 +139,9 @@ class FieldGenerator {
 				}
 				$args = $this->getLength($length);
 			}
-
 			if ($nullable) $decorators[] = 'nullable';
 			if ($default !== null) $decorators[] = $this->getDefault($default, $type);
 			if ($index) $decorators[] = $this->decorate($index->type, $index->name);
-
 			$field = ['field' => $name, 'type' => $type];
 			if ($decorators) $field['decorators'] = $decorators;
 			if ($args) $field['args'] = $args;
@@ -162,7 +149,6 @@ class FieldGenerator {
 		}
 		return $fields;
 	}
-
 	/**
 	 * @param int $length
 	 * @return int|void
@@ -173,7 +159,6 @@ class FieldGenerator {
 			return $length;
 		}
 	}
-
 	/**
 	 * @param string $default
 	 * @param string $type
@@ -190,7 +175,6 @@ class FieldGenerator {
 		}
 		return $this->decorate('default', $default, '');
 	}
-
 	/**
 	 * @param int $precision
 	 * @param int $scale
@@ -206,7 +190,6 @@ class FieldGenerator {
 			return $result;
 		}
 	}
-
 	/**
 	 * @param string|array $args
 	 * @param string       $quotes
@@ -218,10 +201,8 @@ class FieldGenerator {
 			$seperator = $quotes .', '. $quotes;
 			$args = implode( $seperator, $args );
 		}
-
 		return $quotes . $args . $quotes;
 	}
-
 	/**
 	 * Get Decorator
 	 * @param string       $function
@@ -238,7 +219,6 @@ class FieldGenerator {
 			return $function;
 		}
 	}
-
 	/**
 	 * @param IndexGenerator $indexGenerator
 	 * @return array
