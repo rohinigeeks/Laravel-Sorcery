@@ -2,12 +2,7 @@ Laravel API/Scaffold/CRUD Generator (Laravel5)
 =======================
 [![Total Downloads](https://poser.pugx.org/mitulgolakiya/laravel-api-generator/downloads.svg)](https://packagist.org/packages/mitulgolakiya/laravel-api-generator)
 
-I am fan of creating APIs. I have worked on so many projects of creating APIs. Laravel provides really good and handy commands to setup your all required files like Controller, Model, Migration etc.
-
-But the problem that I was facing was, while starting any new project, I have to setup too many things step by step for creating basic CRUD API. Like create migration, model, controller, repository etc.
-So it was little bit time consuming for me to create those all things to setup basic CRUD api for one model and repeat the same steps again for the another model.
-
-So I have created one command where you just need to add fields as we are adding when creating migration and all rest things are created automatically and placed in our configured folders with given namespaces as well.
+Laravel Sorcery generates boilerplate code for a Laravel Web App from the MySQL Schema
 
 This command Generator generates following things:
   * Migration File
@@ -22,7 +17,7 @@ This command Generator generates following things:
     * fields.blade.php
   * updates routes.php
 
-And your simple CURD API is ready in less than 1 minute.
+
 
 Here is the full documentation.
 
@@ -32,7 +27,7 @@ Steps to Get Started
 1. Add this package to your composer.json:
   
         "require": {
-            "mitulgolakiya/laravel-api-generator": "dev-master"
+            "rohinigeeks/laravel-sorcery": "dev-master"
         }
   
 2. Run composer update
@@ -46,7 +41,7 @@ so we need to add those ServiceProviders as well.
         'Illuminate\View\ViewServiceProvider',
         'Illuminate\Html\HtmlServiceProvider',
         'Laracasts\Flash\FlashServiceProvider'
-        'Mitul\Generator\GeneratorServiceProvider'
+        'Rohinigeeks\Generator\GeneratorServiceProvider'
         
 Also for convenience, add these facades in alias array in ```config/app.php```.
 
@@ -56,24 +51,23 @@ Also for convenience, add these facades in alias array in ```config/app.php```.
 
 4. Publish generator.php
 
-        php artisan vendor:publish --provider='Mitul\Generator\GeneratorServiceProvider'
+        php artisan vendor:publish --provider='Rohinigeeks\Generator\GeneratorServiceProvider'
 
 5. Fire the artisan command to generate API for Model, or to generate scaffold with views for web applications
 
-        php artisan mitul.generator:api ModelName
-        php artisan mitul.generator:scaffold ModelName
+        php artisan rohinigeeks.generator:api ModelName
+        php artisan rohinigeeks.generator:scaffold ModelName
         
     e.g.
     
-        php artisan mitul.generator:api Project
-        php artisan mitul.generator:api Post
+        php artisan rohinigeeks.generator:api Project
+        php artisan rohinigeeks.generator:api Post
  
-        php artisan mitul.generator:scaffold Project
-        php artisan mitul.generator:scaffold Post
- 
-6. Enter the fields with options<br>
+        php artisan rohinigeeks.generator:scaffold Project
+        php artisan rohinigeeks.generator:scaffold Post
 
-7. And You are ready to go. :)
+
+6. And You are ready to go. :)
 
 
 Documentation
@@ -153,9 +147,10 @@ Views will be created in ```resources/views/modelName``` folder,
 Credits
 --------
 
-This API Generator is created by [Mitul Golakiya](https://github.com/mitulgolakiya).
-
-**Bugs & Forks are welcomed :)**
+This API Generator was forked from laravel-api-generator created by
+1. [Jamison Valenta](https://github.com/jamisonvalenta)
+2. [Mitul Golakiya](https://github.com/mitulgolakiya).
+3. [Bernhard Breytenbach] (https://github.com/Xethron)
 
 Screenshots
 ------------
