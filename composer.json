@@ -15,7 +15,8 @@
         "laracasts/flash": "~1.3"
     },
     "require-dev": {
-        "way/generators": "dev-feature/laravel-five-stable"
+        "way/generators": "dev-feature/laravel-five-stable",
+        "doctrine/dbal": "~2.4"
     },
     "autoload": {
         "files":[

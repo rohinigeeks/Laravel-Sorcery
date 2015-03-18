@@ -35,7 +35,7 @@ use Rohinigeeks\Generator\Generators\Common\MigrationsGenerator\Syntax\RemoveFor
 use Illuminate\Config\Repository as Config;
 
 //class ScaffoldGeneratorCommand extends Command
-class ScaffoldGeneratorCommand extends GeneratorCommand {{
+class ScaffoldGeneratorCommand extends GeneratorCommand {
 
 	/**
 	 * The console command name.
@@ -136,7 +136,7 @@ class ScaffoldGeneratorCommand extends GeneratorCommand {{
 		TemplateCompiler $compiler,
 		MigrationRepositoryInterface $repository,
 		Config $config
-	)
+	){
 		$this->file = $file;
 		$this->compiler = $compiler;
 		$this->repository = $repository;

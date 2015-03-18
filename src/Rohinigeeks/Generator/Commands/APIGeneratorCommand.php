@@ -136,6 +136,7 @@ class APIGeneratorCommand extends GeneratorCommand {
 		MigrationRepositoryInterface $repository,
 		Config $config
 	)
+	{
 		$this->file = $file;
 		$this->compiler = $compiler;
 		$this->repository = $repository;
