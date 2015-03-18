@@ -224,7 +224,7 @@ class ScaffoldGeneratorCommand extends GeneratorCommand {
 	 *
 	 * @return void
 	 */
-	private function migration_helper()
+	protected function migration_helper()
 	{
 		$this->info( 'Using connection: '. $this->option( 'connection' ) ."\n" );
 		$this->schemaGenerator = new SchemaGenerator(
