@@ -1,5 +1,5 @@
 {
-    "name": "Rohinigeeksgolakiya/laravel-api-generator",
+    "name": "rohinigeeks/laravel-sorcery",
     "description": "Laravel API/Scaffold/CRUD Generator from just one command with including Controller, Repository, Model, Migrations, routes.php update.",
     "keywords": ["laravel", "api", "model", "migration","scaffold", "CRUD",  "generator"],
     "license": "MIT",
@@ -21,8 +21,7 @@
         "laracasts/flash": "~1.3"
     },
     "require-dev": {
-    "xethron/migrations-generator": "dev-l5",
-    "way/generators": "dev-feature/laravel-five-stable",
+        "way/generators": "dev-feature/laravel-five-stable",
     },
     "autoload": {
         "files":[
