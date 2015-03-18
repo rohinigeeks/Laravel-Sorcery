@@ -56,7 +56,7 @@ class GeneratorServiceProvider extends ServiceProvider
 		*/
 
 		$this->app->bind(
-			'erecto.api',
+			'erecto.scaffold',
 			$this->app->share(function($app) {
 				return new ScaffoldGeneratorCommand(
 					$app->make('Way\Generators\Generator'),
