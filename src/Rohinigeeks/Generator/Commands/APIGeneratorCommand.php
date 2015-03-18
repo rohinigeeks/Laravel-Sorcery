@@ -168,60 +168,6 @@ class APIGeneratorCommand extends GeneratorCommand {
 		$migrationGenerator->generate();
 		*/
 
-		migration_helper();
-
-		if ( $this->argument( 'tables' ) ) {
-			$tables = explode( ',', $this->argument( 'tables' ) );
-		} elseif ( $this->option('tables') ) {
-			$tables = explode( ',', $this->option( 'tables' ) );
-		} else {
-			$tables = $this->schemaGenerator->getTables();
-		}
-
-		$tables = $this->removeExcludedTables($tables);
-
-		foreach ( $tables as $table ) {
-
-			$this->commandData = new CommandData($this);
-
-			$this->commandData->modelName = $table;
-			$this->commandData->initVariables();
-			//$this->commandData->inputFields = $this->getInputFields();
-
-
-			$modelGenerator = new ModelGenerator($this->commandData);
-			$modelGenerator->generate();
-
-			if($followRepoPattern)
-			{
-				$repositoryGenerator = new RepositoryGenerator($this->commandData);
-				$repositoryGenerator->generate();
-
-				$repoControllerGenerator = new RepoAPIControllerGenerator($this->commandData);
-				$repoControllerGenerator->generate();
-			}
-			else
-			{
-				$controllerGenerator = new APIControllerGenerator($this->commandData);
-				$controllerGenerator->generate();
-			}
-
-			$routeGenerator = new RoutesGenerator($this->commandData);
-			$routeGenerator->generate();
-
-			if($this->confirm("\nDo you want to migrate database? [y|N]", false))
-				$this->call('migrate');
-		}
-	}
-
-
-	/**
-	 * Execute the migrations part of the command.
-	 *
-	 * @return void
-	 */
-	public function migration_helper()
-	{
 		$this->info( 'Using connection: '. $this->option( 'connection' ) ."\n" );
 		$this->schemaGenerator = new SchemaGenerator(
 			$this->option('connection'),
@@ -261,7 +207,42 @@ class APIGeneratorCommand extends GeneratorCommand {
 		$this->datePrefix = date( 'Y_m_d_His', strtotime( '+1 second' ) );
 		$this->generate( 'foreign_keys', $tables );
 		$this->info( "\nFinished!\n" );
+
+		//do rest
+		foreach ( $tables as $table ) {
+
+			$this->commandData = new CommandData($this);
+
+			$this->commandData->modelName = $table;
+			$this->commandData->initVariables();
+			//$this->commandData->inputFields = $this->getInputFields();
+
+
+			$modelGenerator = new ModelGenerator($this->commandData);
+			$modelGenerator->generate();
+
+			if($followRepoPattern)
+			{
+				$repositoryGenerator = new RepositoryGenerator($this->commandData);
+				$repositoryGenerator->generate();
+
+				$repoControllerGenerator = new RepoAPIControllerGenerator($this->commandData);
+				$repoControllerGenerator->generate();
+			}
+			else
+			{
+				$controllerGenerator = new APIControllerGenerator($this->commandData);
+				$controllerGenerator->generate();
+			}
+
+			$routeGenerator = new RoutesGenerator($this->commandData);
+			$routeGenerator->generate();
+
+			if($this->confirm("\nDo you want to migrate database? [y|N]", false))
+				$this->call('migrate');
+		}
 	}
+
 
 	/**
 	 * Get the console command arguments.
