@@ -25,7 +25,7 @@ use Illuminate\Database\Migrations\MigrationRepositoryInterface;
 
 use Way\Generators\Syntax\DroppedTable;
 
-use Rohinigeeks\Generator\Generators\Common\MigrationsGenerator\Generators\SchemaGenerator;
+use Rohinigeeks\Generator\Generators\Common\MigrationsGenerator\SchemaGenerator;
 use Rohinigeeks\Generator\Generators\Common\MigrationsGenerator\Syntax\AddToTable;
 use Rohinigeeks\Generator\Generators\Common\MigrationsGenerator\Syntax\AddForeignKeysToTable;
 use Rohinigeeks\Generator\Generators\Common\MigrationsGenerator\Syntax\RemoveForeignKeysFromTable;
