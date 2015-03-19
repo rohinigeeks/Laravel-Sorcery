@@ -462,9 +462,11 @@ class APIGeneratorCommand extends GeneratorCommand {
     {
         $fields = [];
 
+        $sgfields = [];
+
         $sg = new SchemaGenerator($this->option('connection'), false, false);
 
-        $sgfields = $sg->getFields($table);
+        $sgfields[] = $sg->getFields($table);
 
         foreach($sgfields as $sgfield)
         {
