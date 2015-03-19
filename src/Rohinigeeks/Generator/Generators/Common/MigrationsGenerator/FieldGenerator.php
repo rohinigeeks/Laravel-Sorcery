@@ -238,4 +238,54 @@ class FieldGenerator {
 		}
 		return $indexes;
 	}
+    /**
+     * Create array of all the fields for a table for CommandData object
+     *
+     * @param $table
+     * @param $schema
+     * @param $database
+     * @return array
+     */
+    public function getInputFields($table, $schema, $database)
+    {
+        $args = [];
+        $fields = [];
+        $decorators = [];
+        $this->database = $database;
+        $columns = $schema->listTableColumns( $table );
+        if ( empty( $columns ) ) return false;
+        foreach ($columns as $column) {
+            $name = $column->getName();
+            $type = $column->getType()->getName();
+            $length = $column->getLength();
+            $default = $column->getDefault();
+            if ($default !== null) $decorators[] = $this->getDefault($default, $type);
+            if (isset($this->fieldTypeMap[$type])) {
+                $type = $this->fieldTypeMap[$type];
+            }
+            if (in_array($type, ['decimal', 'float', 'double'])) {
+                // Precision based numbers
+                $args = explode(",", $this->getPrecision($column->getPrecision(), $column->getScale()));
+                if ($column->getUnsigned()) {
+                    $decorators[] = 'unsigned';
+                }
+            } else {
+                // Probably not a number (string/char)
+                if ($type === 'string' && $column->getFixed()) {
+                    $type = 'char';
+                }
+                $args = $this->getLength($length);
+            }
+            $field = [
+                'fieldName'       => $name,
+                'fieldType'       => $type,
+                'fieldTypeParams' => $args,
+                'fieldOptions'    => $decorators,
+                'validations'     => []
+            ];
+
+            $fields[] = $field;
+        }
+        return $fields;
+    }
 }

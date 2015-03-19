@@ -62,6 +62,10 @@ class SchemaGenerator {
 	{
 		return $this->fieldGenerator->generate($table, $this->schema, $this->database, $this->ignoreIndexNames);
 	}
+    public function getInputFields($table)
+    {
+        return $this->fieldGenerator->getInputFields($table, $this->schema, $this->database);
+    }
 	public function getForeignKeyConstraints($table)
 	{
 		return $this->foreignKeyGenerator->generate($table, $this->schema, $this->ignoreForeignKeyNames);
