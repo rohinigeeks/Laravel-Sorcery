@@ -240,8 +240,8 @@ class APIGeneratorCommand extends GeneratorCommand {
                 $routeGenerator = new RoutesGenerator($this->commandData);
                 $routeGenerator->generate();
 
-                if($this->confirm("\nDo you want to migrate database? [y|N]", false))
-                    $this->call('migrate');
+                //if($this->confirm("\nDo you want to migrate database? [y|N]", false))
+                    //$this->call('migrate');
             }
         }
 
