@@ -469,17 +469,17 @@ class ScaffoldGeneratorCommand extends GeneratorCommand {
 
         $sg = new SchemaGenerator($this->option('connection'), false, false);
 
-        $sgfields[] = $sg->getFields($table);
+        $columns[] = $sg->getFields($table);
 
-        var_dump('sgfields',$sgfields);
+        var_dump($columns);
 
-        foreach($sgfields as $sgfield)
+        foreach($columns as $column)
         {
             $field = [
-                'fieldName'       => $sgfield['field'],
-                'fieldType'       => $sgfield['type'],
-                'fieldTypeParams' => explode( ',', $sgfield['args']),
-                'fieldOptions'    => $sgfield['decorators'],
+                'fieldName'       => $column['field'],
+                'fieldType'       => $column['type'],
+                'fieldTypeParams' => explode( ',', $column['args']),
+                'fieldOptions'    => $column['decorators'],
                 'validations'     => []
             ];
 
