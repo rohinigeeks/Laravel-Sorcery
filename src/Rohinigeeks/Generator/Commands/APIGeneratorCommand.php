@@ -209,38 +209,42 @@ class APIGeneratorCommand extends GeneratorCommand {
 		$this->info( "\nFinished!\n" );
 
 		//do rest
-		foreach ( $tables as $table ) {
+        if(is_array($tables)){
 
-			$this->commandData = new CommandData($this);
+            foreach ( $tables as $table ) {
 
-			$this->commandData->modelName = $table;
-			$this->commandData->initVariables();
-			//$this->commandData->inputFields = $this->getInputFields();
+                $this->commandData = new CommandData($this);
+
+                $this->commandData->modelName = $table;
+                $this->commandData->initVariables();
+                //$this->commandData->inputFields = $this->getInputFields();
 
 
-			$modelGenerator = new ModelGenerator($this->commandData);
-			$modelGenerator->generate();
+                $modelGenerator = new ModelGenerator($this->commandData);
+                $modelGenerator->generate();
 
-			if($followRepoPattern)
-			{
-				$repositoryGenerator = new RepositoryGenerator($this->commandData);
-				$repositoryGenerator->generate();
+                if($followRepoPattern)
+                {
+                    $repositoryGenerator = new RepositoryGenerator($this->commandData);
+                    $repositoryGenerator->generate();
 
-				$repoControllerGenerator = new RepoAPIControllerGenerator($this->commandData);
-				$repoControllerGenerator->generate();
-			}
-			else
-			{
-				$controllerGenerator = new APIControllerGenerator($this->commandData);
-				$controllerGenerator->generate();
-			}
+                    $repoControllerGenerator = new RepoAPIControllerGenerator($this->commandData);
+                    $repoControllerGenerator->generate();
+                }
+                else
+                {
+                    $controllerGenerator = new APIControllerGenerator($this->commandData);
+                    $controllerGenerator->generate();
+                }
 
-			$routeGenerator = new RoutesGenerator($this->commandData);
-			$routeGenerator->generate();
+                $routeGenerator = new RoutesGenerator($this->commandData);
+                $routeGenerator->generate();
 
-			if($this->confirm("\nDo you want to migrate database? [y|N]", false))
-				$this->call('migrate');
-		}
+                if($this->confirm("\nDo you want to migrate database? [y|N]", false))
+                    $this->call('migrate');
+            }
+        }
+
 	}
 
 
