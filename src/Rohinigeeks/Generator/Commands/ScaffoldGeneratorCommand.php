@@ -466,11 +466,10 @@ class ScaffoldGeneratorCommand extends GeneratorCommand {
     private function getInputFields($table)
     {
         $fields = [];
-        $sgfields = [];
 
         $sg = new SchemaGenerator($this->option('connection'), false, false);
 
-        $sg->getFields($table);
+        $sgfields = $sg->getFields($table);
 
         foreach($sgfields as $sgfield)
         {
