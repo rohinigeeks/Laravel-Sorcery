@@ -217,7 +217,7 @@ class ScaffoldGeneratorCommand extends GeneratorCommand {
 
                 $this->commandData->modelName = $table;
                 $this->commandData->initVariables();
-                //$this->commandData->inputFields = $this->getInputFields();
+                $this->commandData->inputFields = $this->getInputFields($table);
 
                 $modelGenerator = new ModelGenerator($this->commandData);
                 $modelGenerator->generate();
@@ -456,6 +456,37 @@ class ScaffoldGeneratorCommand extends GeneratorCommand {
 
 		return $excludes;
 	}
+
+    /**
+     * Get the fields in the following array ['fieldName'=>[], 'fieldType'=>[], ...]
+     *
+     * @param $table
+     * @return array
+     */
+    private function getInputFields($table)
+    {
+        $fields = [];
+        $sgfields = [];
+
+        $sg = new SchemaGenerator($this->option('connection'), false, false);
+
+        $sg->getFields($table);
+
+        foreach($sgfields as $sgfield)
+        {
+            $field = [
+                'fieldName'       => $sgfield['field'],
+                'fieldType'       => $sgfield['type'],
+                'fieldTypeParams' => explode( ',', $sgfield['args']),
+                'fieldOptions'    => $sgfield['decorators'],
+                'validations'     => []
+            ];
+
+            $fields[] = $field;
+        }
+
+        return $fields;
+    }
 
 	/* OLD Method
 	private function getInputFields()
