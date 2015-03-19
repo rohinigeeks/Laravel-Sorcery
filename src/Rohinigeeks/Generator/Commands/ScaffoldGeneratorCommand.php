@@ -467,6 +467,8 @@ class ScaffoldGeneratorCommand extends GeneratorCommand {
     {
         $fields = [];
 
+        $sgfields = [];
+
         $sg = new SchemaGenerator($this->option('connection'), false, false);
 
         $sg->getFields($table);
