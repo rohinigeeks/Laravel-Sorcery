@@ -12,7 +12,7 @@ class TemplatesHelper
 {
 	public function getTemplate($template, $type = "Common")
 	{
-		$path = base_path('vendor/Rohinigeeks/laravel-api-generator/src/Rohinigeeks/Generator/Templates/' . $type . '/' . $template . '.txt');
+		$path = base_path('vendor/Rohinigeeks/laravel-sorcery/src/Rohinigeeks/Generator/Templates/' . $type . '/' . $template . '.txt');
 
 		$fileData = file_get_contents($path);
 
